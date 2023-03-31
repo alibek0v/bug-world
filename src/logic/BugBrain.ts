@@ -1,4 +1,4 @@
-// import {IInstruction} from "./Instructions"
+// import {IInstruction} from "/src/logic/BugAssember/Instructions"
 
 export interface IBugBrain {
     // instructions: IInstruction[]
