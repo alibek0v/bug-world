@@ -12,9 +12,12 @@
         <h1 class="py-4 text-center text-4xl font-bold">Home!</h1>
 
         <div class="p-4">
-            <div class="grid grid-cols-5 gap-4">
-                <div class="col-span-3 border-4">Game field</div>
-                <div class="col-span-2">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-5">
+                <div
+                    class="relative col-span-1 border-4 p-2 md:col-span-3"
+                    id="game-field"
+                ></div>
+                <div class="col-span-1 md:col-span-2">
                     <a href="/options.html">
                         <div class="btn btn-blue">Options</div>
                     </a>
@@ -52,8 +55,32 @@
             </div>
 
             <h2 class="mt-4 text-left text-2xl font-bold">Logs</h2>
-            <label>Switch logs</label>
-            <input type="checkbox" />
+            <div class="mt-2 flex items-center gap-2">
+                <div>
+                    <label>Switch logs</label>
+                    <input type="checkbox" id="log-switch" />
+                </div>
+                <button class="btn btn-red" id="clear-logs-button">
+                    Clear logs
+                </button>
+                <div>
+                    <label>Render frequency</label>
+                    <input
+                        type="number"
+                        min="1"
+                        max="60"
+                        id="render-frequency-input"
+                        name="render-frequency-input"
+                        class="select max-w-xs"
+                    />
+                </div>
+            </div>
+
+            <div
+                class="mt-4 max-h-96 overflow-y-scroll border-2 border-red-600 p-2"
+                id="logs"
+                style="display: none"
+            ></div>
         </div>
 
         <script src="./bundle.js"></script>
