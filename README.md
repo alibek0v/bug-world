@@ -21,15 +21,15 @@ To run the test you need to run ```node src/test/ToStringTest.js``` from project
 
 ### What is done so far and improved:
 
-✅ Changed the structure of game logic written in JavaScript to TypeScript (notes below)
-✅ Configured TypeScript classes and interfaces to create game logic and improved the old code because their JS files were not linked with the HTML pages (previous sprint members created separated pages but did not think about transferring the input files between the pages). Basically, their code was not well linked with each other. We were just given a simple frontend.
+✅ Changed the structure of game logic written in JavaScript to TypeScript (notes below)\
+✅ Configured TypeScript classes and interfaces to create game logic and improved the old code because their JS files were not linked with the HTML pages (previous sprint members created separated pages but did not think about transferring the input files between the pages). Basically, their code was not well linked with each other. We were just given a simple frontend.\
 ✅ All coding in this repo is done using **SOLID** principles, so please have a look at our TypeScript
 files. The file hierarchy is simplified and allows you to easily add new pages and functions, thanks to generalized
-classes and interfaces. Our code is purely object-oriented.
-✅ Linter is added to detect errors while debugging (before committing github)
-✅ Added Tailwind CSS as UIKit to employ css classes
-✅ Set up webpack for optimizing bundle (JavaScript, HTML, CSS)
-✅ Small improvements of UI
+classes and interfaces. Our code is purely object-oriented.\
+✅ Linter is added to detect errors while debugging (before committing github)\
+✅ Added Tailwind CSS as UIKit to employ css classes\
+✅ Set up webpack for optimizing bundle (JavaScript, HTML, CSS)\
+✅ Small improvements of UI\
 
 ### Deployment
 
@@ -40,7 +40,7 @@ classes and interfaces. Our code is purely object-oriented.
 
 - The main page: http://localhost:3000
 
-- To ease the grading process for TAs, please open this link (not ClamV):\ ...
+- To ease the grading process for TAs, please open this link (not ClamV): ...
    
 - How to deploy? (Guide for future Sprinters): You can use the Vercel app. It is  easy to deploy using Vercel to host your website. First, please go to this link: https://vercel.com/docs/concepts/get-started/deploy
 Navigate to "Import an existing project", and then follow the quick guidelines. You will link your github account with Vercel, and while deployment, it will automatically detect the framework and do the work for you. NOTE: Please select your own github repository to deploy because if you select the repository from our Software Engineering organization, the request will be sent to organization admins. You do not want to waste your time contacting TAs - so clone the sprint repo into your account, and then deploy your profile's repository. Next, just copy the link from Vercel!
