@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home - Bug World</title>
+
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <h1 class="py-4 text-center text-4xl font-bold">Home!</h1>
+
+        <div class="p-4">
+            <div class="grid grid-cols-5 gap-4">
+                <div class="col-span-3 border-4">Game field</div>
+                <div class="col-span-2">
+                    <a href="/options.html">
+                        <div class="btn btn-blue">Options</div>
+                    </a>
+                    <a href="/quit.html">
+                        <div class="btn btn-red mt-2">Quit</div>
+                    </a>
+
+                    <div class="mt-4">
+                        <div class="text-xl font-semibold">
+                            Iterations: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Amount of undetected food:: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Red bugs remaining: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Red Bugs killed: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Food brought home for red bugs: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Black bugs remaining: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Black bugs killed: <span>0</span>
+                        </div>
+                        <div class="text-xl font-semibold">
+                            Food brought home for black bugs: <span>0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="mt-4 text-left text-2xl font-bold">Logs</h2>
+            <label>Switch logs</label>
+            <input type="checkbox" />
+        </div>
+
+        <script src="./bundle.js"></script>
+    </body>
+</html>

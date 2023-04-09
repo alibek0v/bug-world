@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Options - Bug World</title>
+
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <h1 class="py-4 text-center text-4xl font-bold">Options</h1>
+
+        <div class="p-4">
+            <div>
+                <div class="text-lg font-semibold">Change bugs' color #1:</div>
+                <select name="bug1color" class="select max-w-xs" id="bug1color">
+                    <option>Red</option>
+                    <option>Black</option>
+                </select>
+            </div>
+            <div>
+                <div class="text-lg font-semibold">Change bugs' color #2:</div>
+                <select name="bug1color" class="select max-w-xs" id="bug1color">
+                    <option>Red</option>
+                    <option>Black</option>
+                </select>
+            </div>
+            <div>
+                <div class="text-lg font-semibold">Number of iterations:</div>
+                <select name="bug1color" class="select max-w-xs" id="bug1color">
+                    <option>100</option>
+                    <option>200</option>
+                    <option>300</option>
+                    <option>400</option>
+                    <option>500</option>
+                </select>
+            </div>
+            <div>
+                <div class="text-lg font-semibold">
+                    The duration of a tick in seconds:
+                </div>
+                <input
+                    class="select max-w-xs"
+                    type="number"
+                    id="ticktime"
+                    name="ticktime"
+                    min="1"
+                    max="100"
+                    value="10"
+                />
+            </div>
+        </div>
+
+        <div class="w-100 flex justify-center">
+            <a href="/home.html">
+                <button class="btn btn-blue">Go back</button>
+            </a>
+        </div>
+
+        <script src="./bundle.js"></script>
+    </body>
+</html>
