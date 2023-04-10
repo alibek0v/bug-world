@@ -1,251 +1,300 @@
+import { Game } from './logic/Game'
 import './styles.css'
+
+const cellDiv = document.createElement('div') as HTMLDivElement
+cellDiv.classList.add('cell')
+
+const game = new Game()
 
 // document on load
 document.addEventListener('DOMContentLoaded', () => {
-    // if path is /home.html
-    if (window.location.pathname === '/home.html') {
-        startGame()
+    // save game to local storage before unload
+    window.addEventListener('beforeunload', () => {
+        localStorage.setItem('game', JSON.stringify(game))
+    })
+
+    // load game from local storage
+    const gameFromLocalStorage = localStorage.getItem('game')
+
+    if (gameFromLocalStorage) {
+        const parsedGame = JSON.parse(gameFromLocalStorage)
+
+        try {
+            game.setMapData(parsedGame.mapData)
+            game.setBugTeam1Data(parsedGame.bugTeam1Data)
+            game.setBugTeam2Data(parsedGame.bugTeam2Data)
+            game.setIterations(parsedGame.iterations)
+            game.setLogResults(parsedGame.logResults)
+            game.setState(parsedGame.state)
+            game.setWorld(parsedGame.world)
+            game.setBugTeam1Color(parsedGame.bugTeam1Color)
+            game.setBugTeam2Color(parsedGame.bugTeam2Color)
+            game.setFps(parsedGame.fps)
+            game.setCurrentIteration(parsedGame.currentIteration)
+            game.setLogs(parsedGame.logs)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
-    // if path is /settings.html
+    console.log(game)
+
+    if (
+        window.location.pathname === '/index.html' ||
+        window.location.pathname === '/'
+    ) {
+        const startGameButton = document.getElementById('start-game-button')
+
+        startGameButton.addEventListener('click', () => {
+            game.setState('start')
+        })
+    }
+
     if (window.location.pathname === '/settings.html') {
-        startSettings()
-    }
-})
+        const finishSetupButton = document.getElementById(
+            'finish-setup-button'
+        ) as HTMLButtonElement
+        const worldMapFile = document.getElementById(
+            'world-map-file'
+        ) as HTMLInputElement
+        const bugTeam1File = document.getElementById(
+            'bug-team-1-file'
+        ) as HTMLInputElement
+        const bugTeam2File = document.getElementById(
+            'bug-team-2-file'
+        ) as HTMLInputElement
+        const iterationsSelect = document.getElementById(
+            'iterations-select'
+        ) as HTMLSelectElement
+        const logResultsCheckbox = document.getElementById(
+            'log-results-checkbox'
+        ) as HTMLInputElement
 
-function startSettings() {
-    // get world-map-file input
-    const worldMapFile = document.getElementById(
-        'world-map-file'
-    ) as HTMLInputElement
+        worldMapFile.addEventListener('change', event => {
+            // read from file
+            const file = (event.target as HTMLInputElement).files[0]
+            const reader = new FileReader()
 
-    // read file
-    worldMapFile.addEventListener('change', () => {
-        const file = worldMapFile.files[0]
-        if (!file) {
-            return
-        }
+            reader.onload = event => {
+                const fileContent = event.target.result as string
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            const text = reader.result as string
+                game.setMapData(fileContent)
+            }
 
-            // save to localstorage
-            localStorage.setItem('mapData', text)
-
-            console.log('Map data saved to localstorage', text)
-        }
-        reader.readAsText(file)
-    })
-}
-
-function startGame() {
-    const logSwitch = document.getElementById('log-switch') as HTMLInputElement
-    const logsList = document.getElementById('logs') as HTMLDivElement
-
-    type Log = {
-        text: string
-        time: string
-    }
-
-    const logs: Log[] = []
-
-    // toggle logs
-    logSwitch.addEventListener('change', () => {
-        if (logSwitch.checked) {
-            logsList.style.display = 'block'
-        } else {
-            logsList.style.display = 'none'
-        }
-    })
-
-    const log = document.createElement('div')
-    log.classList.add('log')
-
-    // add log
-    const addLog = (text: string) => {
-        const time = new Date().toLocaleTimeString()
-        logs.push({
-            text,
-            time,
+            reader.readAsText(file)
         })
 
-        const newLog = log.cloneNode() as HTMLDivElement
-        newLog.innerText = `[${time}] ${text}`
-        logsList.prepend(newLog)
+        bugTeam1File.addEventListener('change', event => {
+            const file = (event.target as HTMLInputElement).files[0]
+            const reader = new FileReader()
+
+            reader.onload = event => {
+                const fileContent = event.target.result as string
+
+                game.setBugTeam1Data(fileContent)
+            }
+
+            reader.readAsText(file)
+        })
+
+        bugTeam2File.addEventListener('change', event => {
+            const file = (event.target as HTMLInputElement).files[0]
+            const reader = new FileReader()
+
+            reader.onload = event => {
+                const fileContent = event.target.result as string
+
+                game.setBugTeam2Data(fileContent)
+            }
+
+            reader.readAsText(file)
+        })
+
+        iterationsSelect.addEventListener('change', event => {
+            const iterations = (event.target as HTMLInputElement).value
+
+            game.setIterations(+iterations)
+        })
+
+        logResultsCheckbox.addEventListener('change', event => {
+            const logResults = (event.target as HTMLInputElement).checked
+
+            game.setLogResults(logResults)
+        })
+
+        finishSetupButton.addEventListener('click', () => {
+            // save game to local storage
+            localStorage.setItem('game', JSON.stringify(game))
+        })
     }
 
-    // clear logs
-    const clearLogs = () => {
-        logs.length = 0
-        while (logsList.firstChild) {
-            logsList.removeChild(logsList.firstChild)
-        }
+    if (window.location.pathname === '/options.html') {
+        const goBackButton = document.getElementById(
+            'go-back-button'
+        ) as HTMLButtonElement
+
+        const fpsSelect = document.getElementById(
+            'fps-select'
+        ) as HTMLSelectElement
+
+        fpsSelect.value = game.fps.toString()
+
+        const bugTeam1ColorSelect = document.getElementById(
+            'bug-team-1-color-select'
+        ) as HTMLSelectElement
+
+        bugTeam1ColorSelect.value = game.bugTeam1Color
+
+        const bugTeam2ColorSelect = document.getElementById(
+            'bug-team-2-color-select'
+        ) as HTMLSelectElement
+
+        bugTeam2ColorSelect.value = game.bugTeam2Color
+
+        const iterationsSelect = document.getElementById(
+            'iterations-select'
+        ) as HTMLSelectElement
+
+        iterationsSelect.value = game.iterations.toString()
+
+        fpsSelect.addEventListener('change', event => {
+            const fps = (event.target as HTMLSelectElement).value
+            game.setFps(+fps)
+        })
+
+        bugTeam1ColorSelect.addEventListener('change', event => {
+            const color = (event.target as HTMLSelectElement).value
+            game.setBugTeam1Color(color)
+        })
+
+        bugTeam2ColorSelect.addEventListener('change', event => {
+            const color = (event.target as HTMLSelectElement).value
+            game.setBugTeam2Color(color)
+        })
+
+        iterationsSelect.addEventListener('change', event => {
+            const iterations = (event.target as HTMLSelectElement).value
+            game.setIterations(+iterations)
+        })
+
+        goBackButton.addEventListener('click', () => {
+            // save game to local storage
+            localStorage.setItem('game', JSON.stringify(game))
+        })
     }
 
-    // clear logs button
-    const clearLogsButton = document.getElementById(
-        'clear-logs-button'
-    ) as HTMLButtonElement
+    if (window.location.pathname === '/home.html') {
+        const logSwitch = document.getElementById(
+            'log-switch'
+        ) as HTMLInputElement
 
-    clearLogsButton.addEventListener('click', () => {
-        clearLogs()
-    })
+        const logsList = document.getElementById('logs') as HTMLDivElement
 
-    // div with class 'cell' as template
-    const cell = document.createElement('div')
-    cell.classList.add('cell')
+        logSwitch.addEventListener('change', () => {
+            logsList.style.display = logSwitch.checked ? 'block' : 'none'
+        })
 
-    // will read from localstorage
-    const mapData = localStorage.getItem('mapData') || ''
+        const clearLogsButton = document.getElementById(
+            'clear-logs-button'
+        ) as HTMLButtonElement
 
-    console.log('Reading from localstorage', mapData)
+        clearLogsButton.addEventListener('click', () => {
+            logsList.innerHTML = ''
+        })
 
-    if (!mapData) {
-        alert('Map data not found')
-    }
+        const maxIteration = document.getElementById(
+            'max-iteration'
+        ) as HTMLSpanElement
 
-    // get gameField
-    const gameField = document.getElementById('game-field')
-    if (!gameField) {
-        alert('Game field not found')
-    }
+        maxIteration.innerText = game.iterations.toString()
 
-    // set gameField display to grid
-    gameField.style.display = 'grid'
+        const currentIterationSpan = document.getElementById(
+            'current-iteration'
+        ) as HTMLSpanElement
 
-    // get gameField size
-    let gameFieldWidth = gameField.clientWidth
-    let gameFieldHeight = gameField.clientHeight
+        const gameField = document.getElementById(
+            'game-field'
+        ) as HTMLDivElement
 
-    // update data on gameField resize
-    window.addEventListener('resize', () => {
-        gameFieldWidth = gameField.clientWidth
-        gameFieldHeight = gameField.clientHeight
-    })
+        gameField.innerHTML = ''
 
-    // type of cells
-    enum ECells {
-        Obstacle = 'obstacle',
-        Empty = 'empty',
-        BlackNest = 'black-nest',
-        RedNest = 'red-nest',
-        Food = 'food',
-    }
+        // set gameField display to grid
+        gameField.style.display = 'grid'
 
-    // start the game
-    const gameData = {
-        width: 0,
-        height: 0,
-        // @ts-expect-error fix
-        cells: [],
-    }
+        let gameFieldWidth = gameField.clientWidth
+        let gameFieldHeight = gameField.clientHeight
 
-    const updateGameData = () => {
-        const map = mapData.split('\n').map(row => row.split(' '))
-        const width = +map[0][0]
-        const height = +map[1][0]
+        // update data on gameField resize
+        window.addEventListener('resize', () => {
+            gameFieldWidth = gameField.clientWidth
+            console.log(gameFieldWidth)
+            gameFieldHeight = gameField.clientHeight
+            console.log(gameFieldHeight)
+        })
 
-        // update gameData
-        gameData.width = width
-        gameData.height = height
+        const updateGameField = () => {
+            // update gameField display
+            gameField.style.gridTemplateColumns = `repeat(${game.world.width}, 1fr)`
+            gameField.style.gridTemplateRows = `repeat(${game.world.height}, 1fr)`
 
-        // # obstacle
-        // . empty cell (ie, no bug)
-        // - empty cell, black swarm nest
-        // + empty cell, red swarm nest
-        // 1..9 empty cell with number of food units
+            // remove all children
+            while (gameField.firstChild) {
+                gameField.removeChild(gameField.firstChild)
+            }
 
-        // reset cells
-        gameData.cells = []
+            // create cells
+            for (let i = 0; i < game.world.height; i++) {
+                for (let j = 0; j < game.world.width; j++) {
+                    const newCell = cellDiv.cloneNode() as HTMLDivElement
 
-        // create cells
-        for (let i = 0; i < height; i++) {
-            for (let j = 0; j < width; j++) {
-                const cell = map[i + 2][j]
-                switch (cell) {
-                    case '#':
-                        gameData.cells.push(ECells.Obstacle)
-                        break
-                    case '.':
-                        gameData.cells.push(ECells.Empty)
-                        break
-                    case '-':
-                        gameData.cells.push(ECells.BlackNest)
-                        break
-                    case '+':
-                        gameData.cells.push(ECells.RedNest)
-                        break
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                    case '5':
-                    case '6':
-                    case '7':
-                    case '8':
-                    case '9':
-                        gameData.cells.push(ECells.Food)
-                        break
-                    default:
-                        break
+                    newCell.style.width = `${
+                        gameFieldWidth / game.world.width - 10
+                    }px`
+                    newCell.style.height = `${
+                        gameFieldHeight / game.world.height - 10
+                    }px`
+
+                    // set cell type
+                    const cell = game.world.cells[i * game.world.width + j]
+                    newCell.classList.add(cell?.type)
+
+                    gameField.appendChild(newCell)
                 }
             }
         }
-    }
 
-    const updateGameField = () => {
-        // update gameField display
-        gameField.style.gridTemplateColumns = `repeat(${gameData.width}, 1fr)`
-        gameField.style.gridTemplateRows = `repeat(${gameData.height}, 1fr)`
+        const renderIteration = () => {
+            currentIterationSpan.innerText = game.currentIteration.toString()
 
-        // remove all children
-        while (gameField.firstChild) {
-            gameField.removeChild(gameField.firstChild)
-        }
-
-        // create cells
-        for (let i = 0; i < gameData.height; i++) {
-            for (let j = 0; j < gameData.width; j++) {
-                const newCell = cell.cloneNode() as HTMLDivElement
-
-                newCell.style.width = `${
-                    gameFieldWidth / gameData.width - 10
-                }px`
-                newCell.style.height = `${
-                    gameFieldHeight / gameData.height - 10
-                }px`
-
-                // set cell type
-                const cellType = gameData.cells[i * gameData.width + j]
-                newCell.classList.add(cellType)
-
-                gameField.appendChild(newCell)
+            if (game.iterations <= game.currentIteration) {
+                game.setState('end')
+                return
+            } else {
+                game.setState('start')
             }
+
+            updateGameField()
+
+            game.currentIteration += 1
+
+            // save game to local storage
+            localStorage.setItem('game', JSON.stringify(game))
         }
+
+        const fps = game.fps
+
+        setInterval(() => {
+            renderIteration()
+        }, 1000 / fps)
     }
 
-    const renderFrequencyInput = document.getElementById(
-        'render-frequency-input'
-    ) as HTMLInputElement
+    if (window.location.pathname === '/end.html') {
+        const restartButton = document.getElementById(
+            'restart-button'
+        ) as HTMLButtonElement
 
-    let fps = 1
-
-    renderFrequencyInput.addEventListener('change', () => {
-        fps = +renderFrequencyInput.value
-    })
-
-    console.log(fps)
-
-    const render = () => {
-        addLog('render')
-        updateGameData()
-        updateGameField()
+        restartButton.addEventListener('click', () => {
+            game.restart()
+        })
     }
-
-    render()
-
-    setInterval(() => {
-        render()
-    }, 1000 / fps)
-}
+})

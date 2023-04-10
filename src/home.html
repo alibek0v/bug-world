@@ -27,28 +27,35 @@
 
                     <div class="mt-4">
                         <div class="text-xl font-semibold">
-                            Iterations: <span>0</span>
+                            Iterations: <span id="current-iteration">0</span> /
+                            <span id="max-iteration"> 100</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Amount of undetected food:: <span>0</span>
+                            Amount of undetected food:
+                            <span id="undetected-food">0</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Red bugs remaining: <span>0</span>
+                            Red bugs remaining:
+                            <span id="bug-team-1-alive">0</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Red Bugs killed: <span>0</span>
+                            Red Bugs killed: <span id="bug-team-1-dead">0</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Food brought home for red bugs: <span>0</span>
+                            Food brought home for red bugs:
+                            <span id="bug-team-1-food">0</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Black bugs remaining: <span>0</span>
+                            Black bugs remaining:
+                            <span id="bug-team-2-alive">0</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Black bugs killed: <span>0</span>
+                            Black bugs killed:
+                            <span id="bug-team-2-dead">0</span>
                         </div>
                         <div class="text-xl font-semibold">
-                            Food brought home for black bugs: <span>0</span>
+                            Food brought home for black bugs:
+                            <span id="bug-team-2-food">0</span>
                         </div>
                     </div>
                 </div>
@@ -63,17 +70,6 @@
                 <button class="btn btn-red" id="clear-logs-button">
                     Clear logs
                 </button>
-                <div>
-                    <label>Render frequency</label>
-                    <input
-                        type="number"
-                        min="1"
-                        max="60"
-                        id="render-frequency-input"
-                        name="render-frequency-input"
-                        class="select max-w-xs"
-                    />
-                </div>
             </div>
 
             <div

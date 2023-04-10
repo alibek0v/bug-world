@@ -14,26 +14,38 @@
         <div class="p-4">
             <div>
                 <div class="text-lg font-semibold">Change bugs' color #1:</div>
-                <select name="bug1color" class="select max-w-xs" id="bug1color">
-                    <option>Red</option>
-                    <option>Black</option>
+                <select
+                    name="bug-team-1-color-select"
+                    class="select max-w-xs"
+                    id="bug-team-1-color-select"
+                >
+                    <option value="red">Red</option>
+                    <option value="black">Black</option>
                 </select>
             </div>
             <div>
                 <div class="text-lg font-semibold">Change bugs' color #2:</div>
-                <select name="bug1color" class="select max-w-xs" id="bug1color">
-                    <option>Red</option>
-                    <option>Black</option>
+                <select
+                    name="bug-team-2-color-select"
+                    class="select max-w-xs"
+                    id="bug-team-2-color-select"
+                >
+                    <option value="red">Red</option>
+                    <option value="black">Black</option>
                 </select>
             </div>
             <div>
                 <div class="text-lg font-semibold">Number of iterations:</div>
-                <select name="bug1color" class="select max-w-xs" id="bug1color">
-                    <option>100</option>
-                    <option>200</option>
-                    <option>300</option>
-                    <option>400</option>
-                    <option>500</option>
+                <select
+                    name="iterations-select"
+                    class="select max-w-xs"
+                    id="iterations-select"
+                >
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
+                    <option value="400">400</option>
+                    <option value="500">500</option>
                 </select>
             </div>
             <div>
@@ -43,8 +55,8 @@
                 <input
                     class="select max-w-xs"
                     type="number"
-                    id="ticktime"
-                    name="ticktime"
+                    id="fps-select"
+                    name="fps-select"
                     min="1"
                     max="100"
                     value="10"
@@ -54,7 +66,9 @@
 
         <div class="w-100 flex justify-center">
             <a href="/home.html">
-                <button class="btn btn-blue">Go back</button>
+                <button class="btn btn-blue" id="go-back-button">
+                    Go back
+                </button>
             </a>
         </div>
 
